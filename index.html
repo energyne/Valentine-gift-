@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For Sanjana ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom, #fff0f5, #ffe6eb);
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #e63946;
+    }
+
+    .balloon {
+      width: 80px;
+      height: 100px;
+      border-radius: 50%;
+      position: absolute;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .balloon:hover {
+      transform: scale(1.1);
+    }
+
+    .balloon::after {
+      content: '';
+      width: 2px;
+      height: 50px;
+      background: #333;
+      position: absolute;
+      bottom: -50px;
+      left: 39px;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+      text-align: center;
+      z-index: 1000;
+      max-width: 80%;
+    }
+
+    .popup img {
+      max-width: 300px;
+      border-radius: 10px;
+    }
+
+    .final-message {
+      font-size: 22px;
+      color: #d62828;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+
+    .disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<h1>Pop the balloons, Sanjana 🎈</h1>
+
+<!-- 7 PHOTO BALLOONS -->
+<div class="balloon" style="background:pink; top:150px; left:100px;" onclick="showPhoto(0,this)"></div>
+<div class="balloon" style="background:orange; top:300px; left:250px;" onclick="showPhoto(1,this)"></div>
+<div class="balloon" style="background:purple; top:200px; left:500px;" onclick="showPhoto(2,this)"></div>
+<div class="balloon" style="background:yellow; top:400px; left:700px;" onclick="showPhoto(3,this)"></div>
+<div class="balloon" style="background:red; top:250px; left:900px;" onclick="showPhoto(4,this)"></div>
+<div class="balloon" style="background:skyblue; top:500px; left:400px;" onclick="showPhoto(5,this)"></div>
+<div class="balloon" style="background:green; top:100px; left:800px;" onclick="showPhoto(6,this)"></div>
+
+<!-- FINAL MESSAGE BALLOON (Locked initially) -->
+<div id="finalBalloon" class="balloon disabled"
+     style="background:gold; top:450px; left:1100px;"
+     onclick="showFinal(this)"></div>
+
+<!-- POPUP -->
+<div class="popup" id="popupBox"></div>
+
+<script>
+
+let openedCount = 0;
+let popup = document.getElementById("popupBox");
+let timer = null;
+
+function showPhoto(i, element) {
+
+  popup.innerHTML = "<img src='photo" + (i+1) + ".jpeg'>";
+  popup.style.display = "block";
+
+  element.style.display = "none";
+  openedCount++;
+
+  // Enable final balloon only after all 7 opened
+  if (openedCount === 7) {
+    document.getElementById("finalBalloon").classList.remove("disabled");
+  }
+
+  // Clear previous timer
+  if (timer) {
+    clearTimeout(timer);
+  }
+
+  // Minimum 5 seconds display
+  timer = setTimeout(function() {
+    popup.style.display = "none";
+  }, 5000);
+}
+
+function showFinal(element) {
+
+  if (openedCount < 7) return;
+
+  popup.innerHTML = "<div class='final-message'>\
+  I love the pink kurti, cold version of you.<br>\
+  I love the angry version of you.<br>\
+  I love the caring version of you.<br>\
+  Even the version that annoys me sometimes.<br><br>\
+  But more than anything…<br>\
+  I love the way you don’t let me walk away when we’re together.<br>\
+  In those moments, I don’t just feel happy…<br>\
+  I feel yours. ❤️\
+  </div>";
+
+  popup.style.display = "block";
+  element.style.display = "none";
+
+  if (timer) {
+    clearTimeout(timer);
+  }
+}
+
+</script>
+
+</body>
+</html>
